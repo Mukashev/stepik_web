@@ -20,12 +20,12 @@ from qa.views import login, signup, ask, popular, new, test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', include('qa.urls')),
-    path('signup/', include('qa.urls')),
+    path('login/', test),
+    path('signup/', test),
     path('question/', include('qa.urls')),
-    path('ask/', include('qa.urls')),
-    path('popular/', include('qa.urls')),
-    path('new/', include('qa.urls')),
+    path('ask/', test),
+    path('popular/', test),
+    path('new/', test),
     path('', test),
     # path('<path:resource>', test),
 ]
