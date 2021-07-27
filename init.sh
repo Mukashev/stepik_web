@@ -1,7 +1,13 @@
 # Stepik #
-sudo ln -sf /home/web/etc/nginx.conf  /etc/nginx/nginx.conf
+sudo ln -sf /home/box/web/etc/nginx.conf /etc/nginx/sites-enabled/default
 sudo rm -rf /etc/nginx/sites-enabled/default
-# Test #
-# sudo ln -sf /home/cogito/nginx_server/etc/nginx.conf  /etc/nginx/nginx.conf
-# Restart #
 sudo /etc/init.d/nginx restart
+gunicorn -c /home/box/web/etc/gunicorn.conf.py hello:app &
+gunicorn -c /home/box/web/etc/gunicorn-django.conf.py ask.wsgi:application &
+
+
+# Test #
+# sudo ln -sf ./etc/nginx.conf  /etc/nginx/nginx.conf
+# sudo /etc/init.d/nginx restart
+# gunicorn -c ./etc/gunicorn.conf.py hello:app &
+# gunicorn -c ./etc/gunicorn-django.conf.py ask.wsgi:application &
