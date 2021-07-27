@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from qa.views import login, signup, ask, popular, new
+from qa.views import login, signup, ask, popular, new, test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', include('qa.urls')),
     path('signup/', include('qa.urls')),
-    path('question/', include('qa.urls')),
+    path('question/', test),
     path('ask/', include('qa.urls')),
     path('popular/', include('qa.urls')),
     path('new/', include('qa.urls')),
