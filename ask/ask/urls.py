@@ -22,9 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', include('qa.urls')),
     path('signup/', include('qa.urls')),
-    path('question/', test),
+    path('question/', include('qa.urls')),
     path('ask/', include('qa.urls')),
     path('popular/', include('qa.urls')),
     path('new/', include('qa.urls')),
-    path('/', test),
+    path('', test),
 ]
