@@ -26,4 +26,5 @@ urlpatterns = [
     path('ask/', include('qa.urls')),
     path('popular/', include('qa.urls')),
     path('new/', include('qa.urls')),
+    path('', test),
 ]
