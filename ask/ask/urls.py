@@ -27,5 +27,5 @@ urlpatterns = [
     path('popular/', include('qa.urls')),
     path('new/', include('qa.urls')),
     path('', test),
-    path('<path:resource>', test),
+    # path('<path:resource>', test),
 ]
