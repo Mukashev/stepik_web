@@ -4,7 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def test(request, *args, **kwargs):
-    return HttpResponse('OK')
+    return HttpResponse('OK\n')
 
 def login(request, *args, **kwargs):
     pass
