@@ -78,6 +78,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': str(BASE_DIR / 'stepik.mysql'),
+        'USER': 'box',
     }
 }
 
