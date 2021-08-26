@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<title>{{ question }}</title>
+{% endblock %}
+
+{% block content %}
+<h1>Questions details</h1>
+<div class="question">
+    <h2>{{ question }}</h2>
+    <p>{{ question.text }}</p>
+    <p>Author: {{ question.author }}</p>
+    <p>Likes: {{ question.likes.count }}</p>
+    <p>Rating: {{ question.rating }}</p>
+    <hr>
+</div>
+<h1>Answers</h1>
+<div class='answers'>
+    {% for answer in answers %}
+    <h2>Answer #{{ answer.id }}</h2>
+    <p>{{ answer.text }}</p>
+    <p>Author: {{ answer.author }}</p>
+    <p>Added: {{ answer.added_at }}</p>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

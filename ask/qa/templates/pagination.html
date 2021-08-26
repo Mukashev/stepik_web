@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<title>{{ main_title }}</title>
+{% endblock %}
+
+{% block content %}
+<div class="questions">
+    <h1>{{ main_title }}</h1>
+    <div class="question">
+        {% for question in questions %}
+        <h2><a href="{{ question.get_url }}">{{ question }}</a></h2>
+        <p>{{ question.text }}</p>
+        <p>Author: {{ question.author }}</p>
+        <p>Likes: {{ question.likes.count }}</p>
+        <p>Added: {{ question.added_at }}</p>
+        <p>Rating: {{ question.rating }}</p>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+<nav>
+    <ul class="pagination">
+        {% for p in paginator.page_range %}
+            {% if p == page.number %}
+            <li class="active">
+            {% else %}
+            <li>
+            {% endif %}
+            <a href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endblock %}
