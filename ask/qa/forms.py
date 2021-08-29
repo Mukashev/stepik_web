@@ -39,7 +39,7 @@ class AskForm(forms.Form):
 
 class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
-    question_id = forms.IntegerField(widget=forms.HiddenInput)
+    question = forms.IntegerField(widget=forms.HiddenInput)
 
     # def __init__(self, user, *args, **kwargs):
     #     if user.is_anonymous:
@@ -56,13 +56,13 @@ class AnswerForm(forms.Form):
 
     def clean_question(self):
         try:
-            question = Question.objects.get(id=self.cleaned_data['question_id'])
+            question = Question.objects.get(id=self.cleaned_data['question'])
         except:
             raise forms.ValidationError('Question not found', code='validation_error')
         return question
 
     def save(self):
-        self.cleaned_data['question'] = Question.objects.get(id=self.cleaned_data['question_id'])
+        self.cleaned_data['question'] = Question.objects.get(id=self.cleaned_data['question'])
         if self._user.is_anonymous:
             self._user = None      
         self.cleaned_data['author'] = self._user
