@@ -2,7 +2,6 @@ from django import forms
 from django.forms.widgets import HiddenInput
 from qa.models import Answer, Question
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User, AnonymousUser
 
 
 class AskForm(forms.Form):
