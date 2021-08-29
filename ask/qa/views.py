@@ -51,7 +51,7 @@ def question(request, **kwargs):
             url = question.get_url()
             return HttpResponseRedirect(url)
     else: # Request = 'GET'
-        form = AnswerForm(request.user, initial={'question_id': question.id})
+        form = AnswerForm(initial={'question_id': question.id})
     context = {
         'question': question,
         'answers': answers,
@@ -69,7 +69,7 @@ def ask(request, *args, **kwargs):
             url = question.get_url()
             return HttpResponseRedirect(url)
     else: # Request = 'GET'
-        form = AskForm(request.user)
+        form = AskForm()
     context = { 'form': form }
     return render(request, 'ask.html', context)
 
