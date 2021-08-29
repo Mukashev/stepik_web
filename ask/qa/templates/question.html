@@ -16,12 +16,36 @@
 </div>
 <h1>Answers</h1>
 <div class='answers'>
-    {% for answer in answers %}
-    <h2>Answer #{{ answer.id }}</h2>
-    <p>{{ answer.text }}</p>
-    <p>Author: {{ answer.author }}</p>
-    <p>Added: {{ answer.added_at }}</p>
-    <hr>
+    {% if answers %}
+        {% for answer in answers %}
+        <h2>Answer #{{ answer.id }}</h2>
+        <p>{{ answer.text }}</p>
+        <p>Author: {{ answer.author }}</p>
+        <p>Added: {{ answer.added_at }}</p>
+        <hr>
     {% endfor %}
+    {% else %}
+        <p>No answers posted yet.</p>
+    {% endif%}
+</div>
+<div class="new_answer">
+    <h2>Give new answer</h2>
+    {% for err in form.non_field_errors %}
+        <div class="alert alert-danger">{{ err }}</div>
+    {% endfor %}
+    <form class="form-horizontal" method="POST" action="{{ question.get_url }}">
+        <fieldset>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="control-group {% if field.errors %}has-error{% endif %}">
+                    <label class="control-label">{{ field.label }}</label>
+                    <div class="controls">{{ field }}</div>
+                </div>
+            {% endfor %}
+        </fieldset>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
 </div>
 {% endblock %}

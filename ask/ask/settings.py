@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qa.apps.QaConfig',
-    # 'django_seed',
+    'django_seed',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +81,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stepik',
-        'USER': 'box',
+        'USER': 'cogito',
+        'PASSWORD': '2501',
     }
 }
 

@@ -8,7 +8,7 @@ urlpatterns = [
     path('login/', test),
     path('signup/', test),
     path('question/<int:question_id>/', question, name='urls_question'),
-    path('ask/', test),
+    path('ask/', ask, name='urls_ask'),
     path('popular/', popular, name='urls_popular'),
     path('new/', new),
 ]

@@ -1,3 +1,5 @@
+sudo apt update
+sudo python3 -m pip install django==2.0
 sudo ln -sf /home/box/web/etc/nginx.conf /etc/nginx/sites-enabled/test.conf
 sudo rm -rf /etc/nginx/sites-enabled/default
 sudo /etc/init.d/nginx restart

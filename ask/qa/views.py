@@ -1,10 +1,10 @@
-from django.core import paginator
-from django.db.models.query_utils import Q
+from django.http.response import HttpResponseRedirect
+from qa.forms import AnswerForm, AskForm
 from qa.models import Question
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, Http404
 from django.core.paginator import EmptyPage, Paginator
-from django.core.exceptions import ObjectDoesNotExist
+
 
 # Create your views here.
 def paginate(request, qs, baseurl):
@@ -26,18 +26,6 @@ def paginate(request, qs, baseurl):
         page = paginator.page(paginator.num_pages)
     return page, paginator
 
-def question(request, **kwargs):
-    q = get_object_or_404(Question, id=kwargs['question_id'])
-    # try:
-    #     q = Question.objects.get(pk=kwargs['question_id'])
-    # except (ObjectDoesNotExist, ValueError):
-    #     raise Http404
-    a = q.answer_set.all()
-    context = {
-        'question': q,
-        'answers': a,
-    }
-    return render(request, 'question.html', context)
 
 def main(request, *args, **kwargs):
     qs_questions = Question.objects.new()
@@ -51,6 +39,39 @@ def main(request, *args, **kwargs):
     }
     return render(request, 'pagination.html', context)
 
+
+def question(request, **kwargs):
+    question = get_object_or_404(Question, id=kwargs['question_id'])
+    answers = question.answer_set.all()
+    if request.method == 'POST':
+        form = AnswerForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else: # Request = 'GET'
+        form = AnswerForm(request.user, initial={'question_id': question.id})
+    context = {
+        'question': question,
+        'answers': answers,
+        'form': form,
+    }
+    return render(request, 'question.html', context)
+
+
+def ask(request, *args, **kwargs):
+    if request.method == 'POST':
+        form = AskForm(request.user, request.POST)
+        if form.is_valid():
+            question = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else: # Request = 'GET'
+        form = AskForm(request.user)
+    context = { 'form': form }
+    return render(request, 'ask.html', context)
+
+
 def popular(request, *args, **kwargs):
     qs_questions = Question.objects.order_by('-rating')
     baseurl= '/popular/?page='
@@ -63,6 +84,7 @@ def popular(request, *args, **kwargs):
     }
     return render(request, 'pagination.html', context)
 
+
 def test(request, *args, **kwargs):
     return HttpResponse('OK\n')
 
@@ -70,9 +92,6 @@ def login(request, *args, **kwargs):
     pass
 
 def signup(request, *args, **kwargs):
-    pass
-
-def ask(request, *args, **kwargs):
     pass
 
 def new(request, *args, **kwargs):

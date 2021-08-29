@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<title>New Question</title>
+{% endblock %}
+
+{% block content %}
+    <div class="new_question">
+        <h1>Ask a New Question</h1>
+        {% for err in form.non_field_errors %}
+            <div class="alert alert-danger">{{ err }}</div>
+        {% endfor %}
+        <form class="form-horizontal" method="POST" action="/ask/">
+            <fieldset>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="control-group {% if field.errors %}has-error{% endif %}">
+                        <label class="control-label">{{ field.label }}</label>
+                        <div class="controls">{{ field }}</div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
