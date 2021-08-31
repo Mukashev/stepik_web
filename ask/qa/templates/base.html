@@ -9,6 +9,14 @@
     {% endblock %}
 </head>
 <body>
+    <div class="user">
+        <h2>Current user: {{ user }}</h2>
+        {% if user.is_authenticated %}
+            <a href="/logout/">Logout</a>
+        {% else %}
+            <a href="/login/">Login</a>
+        {% endif %}
+    </div>
     {% block content %}
     {% endblock %}
 </body>
